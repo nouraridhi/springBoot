@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css">
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="@{/index}">Accueil
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle show" data-bs-toggle="dropdown" th:href="@{/listeEmployee}" role="button" aria-haspopup="true" aria-expanded="true">Employées</a>
+
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle show" data-bs-toggle="dropdown" th:href="@{/listeClient}" role="button" aria-haspopup="true" aria-expanded="true">Clients</a>
+
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle show" data-bs-toggle="dropdown" th:href="@{/getallaccountse}" role="button" aria-haspopup="true" aria-expanded="true">Comptes epargnes</a>
+
+
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle show" data-bs-toggle="dropdown" th:href="@{/getallaccountsc}" role="button" aria-haspopup="true" aria-expanded="true">Comptes Courants</a>
+
+
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle show" data-bs-toggle="dropdown" th:href="@{/listeGroupe}" role="button" aria-haspopup="true" aria-expanded="true">Groupes</a>
+
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron text-center">
+    <h1 class="display-4">Bienvenue , Liste des comptes epargnes</h1>
+
+</div>
+<a th:href="@{/Addaccounte}" style="margin: 20px 0" class="btn btn-primary">Ajouter un compte epargne</a>
+<br>
+<br><br><br>
+<div class="container-fluid">
+
+
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Numero compte</th>
+                    <th scope="col">Date creation</th>
+
+                    <th scope="col">Solde</th>
+                    <th scope="col">Client</th>
+
+                    <th scope="col">Taux</th>
+                    <th scope="col">Supprimer</th>
+                    <th scope="col">modifier</th>
+                </tr>
+                </thead>
+        <tr th:each="ce: ${accountse}">
+            <td type="hidden" th:text="${ce.codeCompte}" />
+            <td th:text="${ce.dateCreation}" />
+            <td th:text="${ce.solde}" />
+            <td th:text="${ce.client.nomClient}" />
+            <td th:text="${ce.Taux}" />
+
+
+            <td><form th:action="@{/deleteae/{numCompte}(numCompte=${ce.numCompte})}" method="get">
+                <input type="hidden" name="numCompte" th:value="${ce.numCompte}">
+                <input type="hidden" name="dateCreation" th:value="${ce.dateCreation}">
+                <input type="hidden" name="client" th:value="${ce.client}">
+                <input type="hidden" name="taux" th:value="${ce.taux}">
+
+                <button type="submit" class="btn btn-danger">Supprimer</button>
+                <button type="submit" class="btn btn-warning">Modifier</button>
+            </form></td>
+
+
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
